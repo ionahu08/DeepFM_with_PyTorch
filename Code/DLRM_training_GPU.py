@@ -21,8 +21,6 @@ from model02_DLRM import ClickClassifier_DLRM
 import multiprocessing as mp
 mp.set_start_method("forkserver", force=True)
 
-
-
         
 def train(data_path, category_count, category_dim, device):
     train_dataset = RecommendDataset(data_path, device=device, train_val="train")
