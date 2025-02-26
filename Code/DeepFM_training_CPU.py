@@ -194,7 +194,7 @@ def train(train_data, test_data, category_count, category_dim):
             print(f"Iteration: {iteration}, Loss: {loss}")
             # Save the model after every 3000 iterations
             if (i + 1) % 3000 == 0:
-                torch.save(model.state_dict(), f"./Models/model_epoch_{epoch}_iter_{i+1}.pth")
+                torch.save(model.state_dict(), f"{project_path}/Models/model_epoch_{epoch}_iter_{i+1}.pth")
                 print(f"Model saved at epoch {epoch}, iteration {i+1}")
             iteration += 1
 
@@ -237,9 +237,11 @@ def plot_loss(train_loss, val_loss_list):
 
 
 if __name__ == "__main__":
-    train_data = pd.read_csv('./Data/dac/train_data.csv')
-    val_data = pd.read_csv('./Data/dac/val_data.csv')
-    test_data = pd.read_csv('./Data/dac/test_data.csv')
+    project_path = "/home/ubuntu/DeepFM_with_PyTorch"
+    
+    train_data = pd.read_csv(f'{project_path}/Data/train_data.csv')
+    val_data = pd.read_csv(f'{project_path}/Data/val_data.csv')
+    test_data = pd.read_csv(f'{project_path}/Data/test_data.csv')
     all_data = pd.concat([train_data, val_data, test_data], axis=0)
     print("Train Size:", train_data.shape)
     print("Val Size:", val_data.shape)
