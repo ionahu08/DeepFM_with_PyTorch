@@ -149,7 +149,7 @@ def rare_cat(threshold, df):
 
 
 
-
+# Convert train.txt&test.txt ---> train.csv&test.csv --->  train_data.csv/val_data.csv/test_data.csv
 def data_preprocessing01(project_path):
     # Convert train.txt&test.txt to train.csv&test.csv
     txt2csv(project_path)
@@ -196,10 +196,9 @@ def data_preprocessing01(project_path):
         label_encoders[col] = le  # Store the encoder for potential inverse transformations
     
     
-
     
     # Determine the split index
-    split_index = int(len(df_all[df_all['label'].notnull()]) * 0.9)
+    split_index = int(len(df_all[df_all['label'].notnull()]) * 0.8)
     print(f"split_index is {split_index}")
     
     # Train data (Features)
@@ -215,12 +214,29 @@ def data_preprocessing01(project_path):
     x_test = df_all.loc[df_all['label'].isnull(), :]
     print("x_test shape:", x_test.shape)
 
-
     
     x_train.to_csv(f"{project_path}/Data/train_data.csv")
     x_val.to_csv(f"{project_path}/Data/val_data.csv")
     x_test.to_csv(f"{project_path}/Data/test_data.csv")
 
+
+
+# Break large csv files into smaller chunk files so that dataLoader can load them efficiently
+def large_csv_chunk_break(project_path, input_data, nrows, nchunks):
+    # Define input file path and output directory
+    input_file = f"{project_path}/Data/{input_data}_data.csv"
+    output_dir = f"{project_path}/Data/chunks"
+    
+    os.makedirs(output_dir, exist_ok=True)
+    # Define total rows and chunk size
+    total_rows = nrows - 1  # Subtract header
+    chunk_size = total_rows // nchunks
+    
+    # Read and split the CSV file
+    reader = pd.read_csv(input_file, chunksize=chunk_size)
+    
+    for i, chunk in enumerate(tqdm(reader, desc="Processing Chunks")):
+        chunk.to_csv(f"{output_dir}/{input_data}_data_chunk_{i}.csv", index=False)
 
 
 
@@ -230,6 +246,13 @@ if __name__ == "__main__":
 
     # import train.txt and test.txt ---> train_csv and test.csv ---> train_data.csv/val_data.csv/test_data.csv
     data_preprocessing01(project_path)
+
+    # Break down train_data.csv into 400 chuncks
+    large_csv_chunk_break(project_path, input_data='train', nrows=36672494, nchunks=400)
+    # Break down val_data.csv into 90 chuncks
+    large_csv_chunk_break(project_path, input_data='val', nrows=9168125, nchunks=90)
+    # Break down test_data.csv into 60 chuncks
+    large_csv_chunk_break(project_path, input_data='test', nrows=6042136, nchunks=60)
 
 
 
