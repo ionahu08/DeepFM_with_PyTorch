@@ -18,7 +18,7 @@ A PyTorch implementation of DeepFM for CTR prediction problem.
 3. **Train and Evaluate Models**  
    - Train a **DNN model**, a **DeepFM model**, and a **DLRM model**.  
    - Make predictions and select the best-performing model.  
-   - Evaluate performance using **log loss** and **AUC**.  
+   - Evaluate performance using **Binary Cross Entropy Loss** and **AUC**.  
    
    ```bash
    python DeepFM_training_GPU.py  # Imports model01_deepFM.py and RecommendDatasetClass.py
@@ -35,6 +35,8 @@ A PyTorch implementation of DeepFM for CTR prediction problem.
 
 - https://github.com/PaddlePaddle/models/tree/develop/deep_fm.
 
-- DeepFM: A Factorization-Machine based Neural Network for CTR         Prediction, Huifeng Guo, Ruiming Tang, Yunming Yey, Zhenguo Li, Xiuqiang He.
+- DeepFM: A Factorization-Machine based Neural Network for CTR Prediction, Huifeng Guo, Ruiming Tang, Yunming Yey, Zhenguo Li, Xiuqiang He.
+
+- Deep Learning Recommendation Model for Personalization and Recommendation Systems, Maxim Naumov et al.
 
 [1]: https://figshare.com/articles/dataset/Kaggle_Display_Advertising_Challenge_dataset/5732310?file=10082655
