@@ -5,7 +5,7 @@ This project implements a PyTorch-based DeepFM model to solve the click-through 
 
 ## Project Goal
 
-Develop and evaluate deep learning models (DeepFM, DLRM, and DNN) to predict ad click-through rate based on user behavior and ad features.
+Develop and evaluate deep learning models (DeepFM, DLRM) to predict ad click-through rate based on user behavior and ad features.
 
 ## Dataset Description
 
@@ -75,7 +75,7 @@ Architecture:
 
 ## Conclusion
 
-Among the models tested (DNN, DLRM, and DeepFM), the **DeepFM model achieved the best performance**. This is likely due to its architecture, which effectively combines:
+Among the models tested (DLRM, and DeepFM), the **DeepFM model achieved the best performance**. This is likely due to its architecture, which effectively combines:
 
 - An **interaction layer** that captures feature interactions (like DLRM),
 - And a **parallel MLP** that processes the concatenated raw embeddings and dense features.
